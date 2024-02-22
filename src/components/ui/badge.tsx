@@ -6,8 +6,8 @@ const badge = tv({
 
   variants: {
     variant: {
-      ghost: 'bg-zinc-800 text-zinc-500',
-      primary: 'bg-teal-950 text-teal-300',
+      ghost: 'bg-slate-800 text-slate-500',
+      primary: 'bg-lime-950 text-lime-300',
     },
   },
 
