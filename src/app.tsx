@@ -1,8 +1,16 @@
-import { FileDown, Plus, Search } from 'lucide-react'
+import { FileDown, MoreHorizontal, Plus, Search } from 'lucide-react'
 import { Header } from './components/header'
 import { Tabs } from './components/tabs'
 import { Button } from './components/ui/button'
 import { Control, Input } from './components/ui/input'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from './components/table'
 
 export function App() {
   return (
@@ -32,6 +40,36 @@ export function App() {
             Exportar
           </Button>
         </div>
+
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead></TableHead>
+              <TableHead>Tag</TableHead>
+              <TableHead>Videos</TableHead>
+              <TableHead></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell>
+                <div className="flex flex-col gap-0.5">
+                  <span className="font-medium">Fluig</span>
+                  <span className="text-xs text-slate-600">
+                    1aefccd5-3b96-4de5-b07b-6109e7e53997
+                  </span>
+                </div>
+              </TableCell>
+              <TableCell className="text-zinc-300">14 video(s)</TableCell>
+              <TableCell className="text-right">
+                <Button size="icon">
+                  <MoreHorizontal className="size-3" />
+                </Button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </main>
     </div>
   )
