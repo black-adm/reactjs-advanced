@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from './components/table'
+import { Pagination } from './components/pagination'
 
 export function App() {
   return (
@@ -21,8 +22,8 @@ export function App() {
       </div>
 
       <main className="max-w-6xl mx-auto space-y-5">
-        <div className="flex items-center gap-3">
-          <h1 className="text-xl uppercase tracking-wide">tags</h1>
+        <div className="flex items-center gap-6">
+          <h1 className="text-xl uppercase tracking-wide">minhas agendas</h1>
           <Button variant="primary">
             <Plus size={12} strokeWidth={3} />
             Criar
@@ -46,30 +47,42 @@ export function App() {
             <TableRow>
               <TableHead></TableHead>
               <TableHead>Tag</TableHead>
-              <TableHead>Videos</TableHead>
+              <TableHead>Cliente</TableHead>
+              <TableHead>Alocação</TableHead>
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>
-                <div className="flex flex-col gap-0.5">
-                  <span className="font-medium">Fluig</span>
-                  <span className="text-xs text-slate-600">
-                    1aefccd5-3b96-4de5-b07b-6109e7e53997
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell className="text-zinc-300">14 video(s)</TableCell>
-              <TableCell className="text-right">
-                <Button size="icon">
-                  <MoreHorizontal className="size-3" />
-                </Button>
-              </TableCell>
-            </TableRow>
+            {Array.from({ length: 7 }).map((value, index) => {
+              return (
+                <TableRow key={index}>
+                  <TableCell></TableCell>
+                  <TableCell>
+                    <div className="flex flex-col gap-0.5">
+                      <span className="font-medium">Fluig</span>
+                      <span className="text-xs text-slate-600">
+                        1aefccd5-3b96-4de5-b07b-6109e7e53997
+                      </span>
+                    </div>
+                  </TableCell>
+
+                  <TableCell className="text-zinc-300 text-xs">
+                    Mackenzie
+                  </TableCell>
+                  <TableCell className="text-zinc-300 tex-xs">
+                    3 mese(s)
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button size="icon">
+                      <MoreHorizontal className="size-3" />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
+        <Pagination />
       </main>
     </div>
   )
