@@ -1,13 +1,13 @@
 import { ChevronDown } from 'lucide-react'
 import { Badge } from './ui/badge'
-import logo from '../assets/logo.svg'
+import logo from '@public/logo.svg'
 
 export function Header() {
   return (
     <div className="max-w-[1200px] mx-auto flex items-center justify-between">
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2.5">
-          <img src={logo} className="w-12 h-12" alt="money.logo" />
+          <img src={logo} className="w-12 h-12" alt="company.logo" />
 
           <Badge>BETA</Badge>
         </div>
