@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { FileDown, MoreHorizontal, Plus, Search } from 'lucide-react'
 import { Header } from './components/header'
 import { Tabs } from './components/tabs'
@@ -12,8 +15,15 @@ import {
   TableRow,
 } from './components/table'
 import { Pagination } from './components/pagination'
-import { useQuery } from '@tanstack/react-query'
-import { useSearchParams } from 'react-router-dom'
+
+import useDebounceValue from './hooks/use-debounce-value'
+
+export interface Tag {
+  id: string
+  title: string
+  company: string
+  period: string
+}
 
 export interface TagResponse {
   first: number
@@ -25,25 +35,32 @@ export interface TagResponse {
   data: Tag[]
 }
 
-export interface Tag {
-  id: string
-  title: string
-  company: string
-  period: string
-}
-
 export function App() {
-  const baseUrl = 'http://localhost:3333'
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [filter, setFilter] = useState('')
+
+  const baseUrl = 'http://localhost:3333/tags'
+  const debouncedFilter = useDebounceValue(filter, 1000)
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1
 
+  useEffect(() => {
+    setSearchParams((params) => {
+      params.set('page', '1')
+      return params
+    })
+  }, [debouncedFilter, setSearchParams])
+
   const { data: tagsResponse, isLoading } = useQuery<TagResponse>({
-    queryKey: ['get-tags'],
+    queryKey: ['get-tags', debouncedFilter, page],
     queryFn: async () => {
-      const request = await fetch(`${baseUrl}/tags?_page=1&_per_page=10`)
-      const response = request.json()
+      const request = await fetch(
+        `${baseUrl}?_page=${page}&_per_page=10&title=${debouncedFilter}`,
+      )
+      const response = await request.json()
       return response
     },
+    placeholderData: keepPreviousData,
+    staleTime: 1000 * 60,
   })
 
   if (isLoading) return null
@@ -67,7 +84,10 @@ export function App() {
         <div className="flex items-center justify-between">
           <Input variant="filter">
             <Search className="size-3" />
-            <Control placeholder="Pesquisar ..." />
+            <Control
+              placeholder="Pesquisar ..."
+              onChange={(e) => setFilter(e.target.value)}
+            />
           </Input>
 
           <Button>
@@ -116,13 +136,13 @@ export function App() {
             })}
           </TableBody>
         </Table>
-        {tagsResponse &&
+        {tagsResponse && (
           <Pagination
             pages={tagsResponse.pages}
             items={tagsResponse.items}
             page={page}
           />
-        }
+        )}
       </main>
     </div>
   )
