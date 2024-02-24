@@ -8,7 +8,6 @@ export function Header() {
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2.5">
           <img src={logo} className="w-12 h-12" alt="company.logo" />
-
           <Badge>BETA</Badge>
         </div>
 
@@ -36,9 +35,7 @@ export function Header() {
           />
 
           <span className="text-sm font-medium text-slate-50">Fit Gestão</span>
-
           <Badge variant="primary">PRO</Badge>
-
           <ChevronDown className="text-slate-600 size-4" />
         </div>
 
@@ -60,7 +57,6 @@ export function Header() {
 
         <div className="flex items-center gap-2.5">
           <span className="text-sm font-medium text-slate-50">Projetos</span>
-
           <ChevronDown className="text-slate-600 size-4" />
         </div>
       </div>

@@ -21,31 +21,24 @@ export function Pagination({ items, page, pages }: PaginationProps) {
   function firstPage() {
     setSearchParams((params) => {
       params.set('page', '1')
-
       return params
     })
   }
 
   function previousPage() {
-    if (page - 1 <= 0) {
-      return
-    }
+    if (page - 1 <= 0) return
 
     setSearchParams((params) => {
       params.set('page', String(page - 1))
-
       return params
     })
   }
 
   function nextPage() {
-    if (page + 1 > pages) {
-      return
-    }
+    if (page + 1 > pages) return
 
     setSearchParams((params) => {
       params.set('page', String(page + 1))
-
       return params
     })
   }
@@ -53,14 +46,13 @@ export function Pagination({ items, page, pages }: PaginationProps) {
   function lastPage() {
     setSearchParams((params) => {
       params.set('page', String(pages))
-
       return params
     })
   }
 
   return (
     <div className="flex text-sm items-center justify-between text-slate-500">
-      <span>Showing 10 of {items} items</span>
+      <span>Mostrando 10 de {items} items</span>
       <div className="flex items-center gap-8">
         <div className="flex items-center gap-2">
           <span>Rows per page</span>
@@ -76,7 +68,7 @@ export function Pagination({ items, page, pages }: PaginationProps) {
         </div>
 
         <span>
-          Page {page} of {pages}
+          Página {page} de {pages}
         </span>
 
         <div className="space-x-1.5">

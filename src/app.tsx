@@ -13,6 +13,7 @@ import {
 } from './components/table'
 import { Pagination } from './components/pagination'
 import { useQuery } from '@tanstack/react-query'
+import { useSearchParams } from 'react-router-dom'
 
 export interface TagResponse {
   first: number
@@ -33,6 +34,8 @@ export interface Tag {
 
 export function App() {
   const baseUrl = 'http://localhost:3333'
+  const [searchParams] = useSearchParams()
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1
 
   const { data: tagsResponse, isLoading } = useQuery<TagResponse>({
     queryKey: ['get-tags'],
@@ -113,9 +116,14 @@ export function App() {
             })}
           </TableBody>
         </Table>
-        {/* <Pagination /> */}
+        {tagsResponse &&
+          <Pagination
+            pages={tagsResponse.pages}
+            items={tagsResponse.items}
+            page={page}
+          />
+        }
       </main>
     </div>
   )
-  f
 }
